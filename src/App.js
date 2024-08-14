@@ -33,7 +33,6 @@ function Board({ xIsNext, squares, onPlay }) {
     // setXIsNext(!xIsNext);
   }
 
-
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
@@ -42,22 +41,23 @@ function Board({ xIsNext, squares, onPlay }) {
     status = "Next Player : " + (xIsNext ? "X" : "O");
   }
 
-
   function renderSquare(i) {
     return (
       <Square value={squares[i]} onSquareClick={() => handleClick(i)} key={i} />
-    )
+    );
   }
 
   const boardRows = [];
   for (let row = 0; row < 3; row++) {
     const squaresRow = [];
     for (let col = 0; col < 3; col++) {
-      squaresRow.push(renderSquare(row * 3 + col))
+      squaresRow.push(renderSquare(row * 3 + col));
     }
     boardRows.push(
-      <div className="board-row" key={row}>{squaresRow}</div>
-    )
+      <div className="board-row" key={row}>
+        {squaresRow}
+      </div>
+    );
   }
 
   return (
@@ -65,7 +65,7 @@ function Board({ xIsNext, squares, onPlay }) {
       <div className="status">{status}</div>
       {boardRows}
     </>
-  )
+  );
 }
 // return (
 //   <>
@@ -91,10 +91,10 @@ function Board({ xIsNext, squares, onPlay }) {
 //   </>
 // );
 
-
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [isAscending, setIsAcending] = useState(true);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -110,6 +110,10 @@ export default function Game() {
     // setXIsNext(nextMove % 2 === 0);
   }
 
+  function SorterOrder() {
+    setIsAcending(!isAscending);
+  }
+
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
@@ -123,16 +127,19 @@ export default function Game() {
           <button onClick={() => jumpTo(move)}>{description}</button>
         </li>
       );
-    }
-    else {
+    } else {
       return (
         <li key={move}>
           <p onClick={() => jumpTo(move)}>You are at move #{move}</p>
         </li>
       );
-
     }
   });
+
+  if (!isAscending) {
+    moves.reverse();
+  }
+
   return (
     <div className="game">
       <div className="game-board">
@@ -140,11 +147,15 @@ export default function Game() {
       </div>
 
       <div className="game-info">
+        <button onClick={SorterOrder}>
+          {isAscending ? "Sort Decending" : "Sort Ascending"}
+        </button>
         <ol>{moves}</ol>
       </div>
     </div>
   );
 }
+
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
