@@ -44,6 +44,7 @@ code {
 
 ul {
   padding-inline-start: 20px;
+  list-style-type: none;
 }
 
 * {
@@ -63,22 +64,24 @@ body {
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  height: 45px;
+  width: 45px;
 }
 
 .board-row:after {
   clear: both;
-  content: '';
+  content: "";
   display: table;
 }
 
 .status {
   margin-bottom: 10px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.853);
 }
 .game {
   display: flex;
@@ -87,4 +90,20 @@ body {
 
 .game-info {
   margin-left: 20px;
+}
+
+.winning-square {
+  background-color: #00b4d8;
+  color: #fff;
+  font-size: 28px;
+}
+
+.button {
+  border: none;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 10px;
+}
+.allign {
+  margin-left: 40px;
 }
