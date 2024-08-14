@@ -34,7 +34,7 @@ function Board({ xIsNext, squares, onPlay }) {
   }
 
   const array = Array();
-  const winner = calculateWinner(squares,array);
+  const winner = calculateWinner(squares, array);
   let status;
   if (winner) {
     status = "Winner : " + winner;
@@ -46,8 +46,7 @@ function Board({ xIsNext, squares, onPlay }) {
     <>
       <div className="status">{status}</div>
       <div className="board-row">
-       
-       
+
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
         <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
@@ -93,15 +92,22 @@ export default function Game() {
     } else {
       description = "Go to game start ";
     }
-   
+    if (move != currentMove || move === 0) {
       return (
         <li key={move}>
           <button onClick={() => jumpTo(move)}>{description}</button>
         </li>
       );
-    
-    })
-  
+    }
+    else {
+      return (
+        <li key={move}>
+          <p onClick={() => jumpTo(move)}>You are at move #{move}</p>
+        </li>
+      );
+
+    }
+  });
   return (
     <div className="game">
       <div className="game-board">
